@@ -6,18 +6,22 @@ import boto3
 from botocore.vendored import requests
 from botocore.exceptions import ClientError
 from url_validator import is_url
+import logging
 
 s3 = boto3.resource('s3')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     #Validate the token passed.
     header = event.get('headers', None)
     if not header:
         return create_error_message(403, 'No headers provided')       
-    token = header.get('Authentication', None)
+    token = header.get('Authorization', None)
     if not token:
         return create_error_message(403, 'No auth token provided')    
-    if not validate_token(token, os.environ['SCOPE']):
+    valid_token, message = validate_token(token, os.environ['SCOPE'])
+    if not valid_token:
         return create_error_message(403, 'Token invalid for this scope')            
     
     #Validate the input
@@ -39,7 +43,8 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': os.environ['DOMAIN'] + input['custom']
+        'body': os.environ['DOMAIN'] + input['custom'],
+        'headers': {'Access-Control-Allow-Origin': '*'}
     }
     
 def is_url_free(path):
@@ -68,10 +73,11 @@ def get_input_object(obj):
     """
     Validate the JSON and return an object with corrected url. 
     """
-    url = obj.get('url')
+    new_obj = json.loads(obj)
+    url = new_obj.get('url')
     if not is_url(url):
         return None
-    custom = obj.get('custom', None)
+    custom = new_obj.get('custom', None)
     
     return {
         'url': url,
@@ -106,11 +112,11 @@ def validate_token(auth_key, scope):
                 # Check if token valid for requested scope.
                 scopes = json_data['scope']
                 if scope in scopes.split():
-                    return True
+                    return True, "Found cors"
         except:
-            return False
+            return False, "Failed in status"
 
-    return False
+    return False, req.status_code
     
 def mcity_keys_oauth(auth_key, endpoint):
     """
@@ -128,4 +134,5 @@ def create_error_message(status_code, message):
     return {
       'statusCode': status_code,
       'body': message,
+      'headers': {'Access-Control-Allow-Origin': '*.um.city'}
     }
