@@ -12,7 +12,6 @@ export default new Vuex.Store({
     url
   },
   state: {
-    urlBase: process.env.VUE_APP_API_URL,
     errors: [],
     presentMode: false,
     isUserAdmin: false,
@@ -36,7 +35,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getUrl: state => state.urlBase,
     getPresentMode: state => state.presentMode,
     mixpanelEnabled: state => state.mixpanelEnabled === 'production',
     getErrors: state => state.errors,

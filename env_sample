@@ -5,7 +5,6 @@ export DOMAIN=https://go.um.city/
 export SCOPE=Oauth Scope
 
 
-VUE_APP_API_URL=http://novaslp.net
 VUE_APP_MIXPANEL_TOKEN=YOURPROJECTOKENHERE
 VUE_APP_OAUTH_KEY=This is acquired from Mcity keys, grab the DEV OAUTH Key for use with localhost.
 VUE_APP_HOST=https://go.um.city
