@@ -54,6 +54,27 @@ SCOPE: The cope of the auth token that is required
 When setting up your Lambda, it should have created a system IAM role that your lambda will execute as. Grant that role read/write access to objects in that bucket. PutObject, PutObjectACL, PutTag, ReadObject, ReadTag, ReadObjectACL, ListBucket, HeadBucket should do it.
 
 #### Setup API Gateway to Lambda services
+Create POST gateway for API Lamda
+
+Use the following model for input.
+
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "title" : "URLSchema",
+  "type" : "object",
+  "properties" : {
+    "url" : { 
+        "type" : "string"
+    },
+    "custom" : { 
+        "type" : "string", 
+        "pattern": "[A-Za-z0-9]{20}"
+    }
+  }
+}
+
+Enable CORS for these endpoints.
+Since the API is setup for lambda proxy, the lambda itself also needs to return the CORS headers.
 
 #### Buld frontend website and deploy to S3 root.
 ```sh
