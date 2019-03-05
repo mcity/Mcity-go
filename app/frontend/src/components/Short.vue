@@ -14,15 +14,17 @@
           label="Custom short name"
           placeholder="Leave Blank for random url"
         ></v-text-field>
-        <v-btn color="success" v-on:click="createURL">Make it smaller!</v-btn>
-        {{reply}}
+        <v-btn 
+          @click="shrinkURL"
+          color="primary">Shrink</v-btn>
+        {{lastURL}}
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import axios from 'axios';
-import { mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import api from '../api'
 
 export default {
   data () {
@@ -30,25 +32,26 @@ export default {
       newUrl: {
         url: '',
         custom: ''
-      },
-      reply: '',
-      wsURL: 'https://182p0czopi.execute-api.us-east-2.amazonaws.com/default/mcity-go',
-      loading: false
+      }
     }
   },
   methods: {
-    ...mapMutations('project', [
-      'logError'
+    ...mapActions('url/transactions', [
+      'createURLAction'
     ]),
-    createURL: function () {
-      this.loading = true;
-      axios.post(this.wsURL, this.newUrl)
-        .then((response)  =>  {
-          this.loading = false;
-          this.reply = "Your new URL is:" + response.data.value;
-        })
-        .catch(e => commit('logError', e, { root: true }))
+    shrinkURL: function () {
+      this.createURLAction(this.newUrl)
     }
+  },
+  computed: {
+    ...mapState('url', {
+        lastURL: state => state.url.lastURL
+    }),
+    lastURL: {
+      get () {
+        return this.$store.state.url.lastURL
+      }
+    },
   }
 }
 </script>

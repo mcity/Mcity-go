@@ -2,14 +2,6 @@
   <v-container grid-list-md fluid>
     <v-layout wrap justify-start>
       <v-flex xs12 md12>
-        <ul v-show="errors && errors.length">
-          <li 
-            v-for="(error, i) in errors" 
-            :key="i"
-          >
-            {{error.message}}
-          </li>
-        </ul>
         <short class="mb-4"></short>
       </v-flex>
     </v-layout>

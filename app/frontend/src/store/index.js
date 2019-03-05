@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import url from './modules/url'
 import session from 'mcity-vue-auth/src/store/session'
 
 Vue.config.devtools = true
@@ -7,7 +8,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    session
+    session,
+    url
   },
   state: {
     urlBase: process.env.VUE_APP_API_URL,

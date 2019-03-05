@@ -70,6 +70,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'getShowIframe',
+    ]),
     ...mapState({
       getPresentMode: state => state.presentMode,
       isUserAdmin: state => state.isUserAdmin,
