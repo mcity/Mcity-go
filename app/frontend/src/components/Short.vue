@@ -17,7 +17,7 @@
         <v-btn 
           @click="shrinkURL"
           color="primary">Shrink</v-btn>
-        {{lastURL}}
+        <a v-if="lastURL" :href="lastURL">{{lastURL}}</a>
     </v-card-text>
   </v-card>
 </template>

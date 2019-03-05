@@ -7,7 +7,7 @@ const {
 const actions = {
   createURLAction ({ commit }, requestBody) {
     return createURL(requestBody)
-      .then(response => commit('event/setLastURL', response.data, { root: true }))
+      .then(response => commit('url/setLastURL', response.data, { root: true }))
       .catch(e => commit('logError', e, { root: true }))
   }
 }

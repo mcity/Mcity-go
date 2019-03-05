@@ -10,7 +10,7 @@ import setupInterceptors from './interceptors'
 
 setupInterceptors()
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 if (process.env.NODE_ENV === 'production') {
   Vue.use(VueMultianalytics, {
