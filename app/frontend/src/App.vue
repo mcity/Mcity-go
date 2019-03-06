@@ -27,7 +27,7 @@
           dismissible
         >
           Request Failed - 
-          If problem persists, please email mcity-engineering@umich.edu :
+          If problem persists, please email mcity-engineering@umich.edu
           {{ errorText }}
         </v-alert>
         <router-view/>
