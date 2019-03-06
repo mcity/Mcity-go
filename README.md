@@ -57,7 +57,6 @@ When setting up your Lambda, it should have created a system IAM role that your 
 Create POST gateway for API Lamda
 
 Use the following model for input.
-
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "title" : "URLSchema",

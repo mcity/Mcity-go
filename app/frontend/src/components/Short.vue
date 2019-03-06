@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline primary white--text">
-      URL Shortener - go.um.city 
+      URL Shortener
     </v-card-title>
     <v-card-text class="text-xs-left">
         <v-text-field
@@ -72,7 +72,7 @@ export default {
         maxLength: maxLength(600)
       },
       custom: {
-        maxLength: maxLength(15)
+        maxLength: maxLength(20)
       },
     }
   }
