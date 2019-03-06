@@ -21,8 +21,8 @@ export default new Vuex.Store({
   },
   mutations: {
     logError (state, err) {
-      console.log(err)
-      state.errors.push(err)
+      console.log(err.response)
+      state.errors.push(err.response)
     },
     updatePresentationMode (state) {
       state.presentMode = !state.presentMode
