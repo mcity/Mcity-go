@@ -26,7 +26,7 @@
     "html-webpack-plugin": "^3.2.0",
     "lodash-es": "^4.17.11",
     "mcity-vue-auth": "git+https://github.com/mcity/mcity-vue-auth.git",
-    "mcity-vue-shared": "git+https://github.com/mcity/Mcity-vue-shared.git#4f04d2f89cca5f8888c55cdde7266fca41158573",
+    "mcity-vue-shared": "git+https://github.com/mcity/Mcity-vue-shared.git",
     "postcss-import": "^12.0.1",
     "postcss-url": "^8.0.0",
     "query-string": "^6.2.0",

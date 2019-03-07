@@ -58,7 +58,7 @@ def is_url_free(path):
             return True, 'File name free'
         else:
             return False, 'File name taken'
-    return False, 'File name is taken'
+    return False, 'Link URL is taken'
     
 def create_redirect(path, url):
     try:
@@ -134,5 +134,5 @@ def create_error_message(status_code, message):
     return {
       'statusCode': status_code,
       'body': message,
-      'headers': {'Access-Control-Allow-Origin': '*.um.city'}
+      'headers': {'Access-Control-Allow-Origin': '*'}
     }

@@ -26,8 +26,6 @@
           v-model="showRequestFailed"
           dismissible
         >
-          Request Failed - 
-          If problem persists, please email mcity-engineering@umich.edu :
           {{ errorText }}
         </v-alert>
         <router-view/>
@@ -66,7 +64,8 @@ export default {
   watch: {
     errors (val) {
       this.showRequestFailed = true
-      this.errorText = val[val.length - 1]
+      this.defultText = "Request Failed - If problem persists, please email mcity-engineering@umich.edu" + val[val.length - 1]
+      this.errorText = val[val.length - 1].data || this.defultText
     }
   },
   computed: {
