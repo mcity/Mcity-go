@@ -7,7 +7,7 @@ import { checkRequiresAuth } from 'mcity-vue-auth/dist/router/beforeEachHooks'
 
 Vue.use(Router)
 // Enables auth on routes if VUE_APP_TESTING env var is set to false
-const testMode = process.env.VUE_APP_TESTING === 'false'
+const testMode = process.env.VUE_APP_TESTING === 'false' || process.env.VUE_APP_TESTING == null
 const router = new Router({
   mode: 'history',
   routes: [
