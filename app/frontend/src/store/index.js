@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import url from './modules/url'
-import session from 'mcity-vue-auth/src/store/session'
+import session from 'mcity-vue-auth/src/dist/session'
 
 Vue.config.devtools = true
 Vue.use(Vuex)
