@@ -1,0 +1,125 @@
+openapi: "3.0.0"
+info:
+  description: "Mcity URL Shortener"
+  version: "0.0.1"
+  title: "Mcity Go"
+  contact:
+    name: "Micty Go support"
+    email: "mcity-engineering@umich.edu"
+  license:
+    name: "MIT License"
+    url: "https://opensource.org/licenses/MIT"
+externalDocs:
+  description: "Mcity website"
+  url: "https://mcity.umich.edu"
+servers:
+  - url: https://182p0czopi.execute-api.us-east-2.amazonaws.com/default
+    description: Production Lambda
+security: #Apply security to all methods.
+  - oAuth2Implicit: [url,roles,email]
+components:
+  securitySchemes:
+    oAuth2Implicit:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://keys.um.city/oauth/authorize
+          scopes:
+            url: Go Access
+            email: Detailed contact information access
+            roles: Role access
+  responses:
+    UnauthorizedError:
+      description: Authorization Error - API key is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/APIError"
+    ConflictsError:
+      description: "ID was specified, but object already exists with that ID."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/APIError"
+    PoorFormError:
+      description: Request to this endpoint was not appropriately formed.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/APIError"
+    NotFoundError:
+      description: Requested ID does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/APIError"
+    NotAllowedError:
+      description: Request was denied because resource does not support this action, or the action results in an invalid state.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/APIError"
+  schemas:
+    APIError:
+      type: "object"
+      properties:
+        internal_code:
+          type: "integer"
+          format: "int32"
+          description: 'The internal error code encountered by the API'
+        status:
+          type: "integer"
+          description: "The HTTP error code returned with this error object."
+        message:
+          type: "string"
+          description: "The error message encountered"
+        human_message:
+          type: "string"
+          description: "A human readable HTTP error code"
+    go:
+      type: object
+      properties:
+        custom:
+          type: string
+          description: The custom postfix you'd like the URL shortened to.
+        url:
+          type: string
+          description: A valid URL string you wish to shorten.
+tags:
+- name: Go
+  description: "URL Shortener"
+  externalDocs:
+    description: Shorten URLs"
+    url: "http://go.um.city/"
+paths:
+  /mcity-go:
+    post:
+      tags:
+        - Go
+      summary: Shortens a URL
+      requestBody:
+        description: Fields to update on the reservation
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation:
+                  $ref: "#/components/schemas/go"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: "string"
+                description: The resulting URL
+        400:
+          $ref: "#/components/responses/PoorFormError"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+        500:
+          description: "Internal server error"

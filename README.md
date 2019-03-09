@@ -86,7 +86,8 @@ Copy env_sample to .env and populate the VUE_APP values
 $ npm run build
 ```
 
-Copy files from Dist folder to S3 bucket
+Copy files/folders from Dist folder to S3 bucket
+Copy the APIDocs folder to the root of S3 Bucket
 Invalidate cloudfront cache
 
 ### Testing backend services
