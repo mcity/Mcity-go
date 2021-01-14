@@ -88,7 +88,7 @@ const dropDownFieldErrors = function (field, errorMessages) {
 
 const validateField = function (field, errorMessages, defaultErrors) {
   errorMessages = errorMessages || []
-  let errorToCheck = (errorMessages.length > 0) ? errorMessages : defaultErrors
+  const errorToCheck = (errorMessages.length > 0) ? errorMessages : defaultErrors
   return errorToCheck.reduce(function (accumulator, currentValue) {
     if (!field[currentValue.validator]) {
       accumulator.push(currentValue.msg)

@@ -15,13 +15,13 @@
         <v-text-field
           v-model="newUrl.custom"
           label="Custom short name"
-          placeholder="Leave Blank for random url"          
+          placeholder="Leave Blank for random url"
           :error-messages="textFieldOptionalErrors($v.newUrl.custom)"
           :hint="`${newUrl.custom.length}/8 Characters`"
           @input="$v.newUrl.custom.$touch()"
           @blur="$v.newUrl.custom.$touch()"
         ></v-text-field>
-        <v-btn 
+        <v-btn
           @click="shrinkURL"
           :disabled="$v.newUrl.$invalid"
           color="primary">Shrink</v-btn>
@@ -34,7 +34,6 @@
 import { mapActions, mapState } from 'vuex'
 import { url, required, maxLength } from 'vuelidate/lib/validators'
 import { validationMixin } from '../validators.js'
-import api from '../api'
 
 export default {
   mixins: [validationMixin],
@@ -56,13 +55,13 @@ export default {
   },
   computed: {
     ...mapState('url', {
-        lastURL: state => state.url.lastURL
+      lastURL: state => state.url.lastURL
     }),
     lastURL: {
       get () {
         return this.$store.state.url.lastURL
       }
-    },
+    }
   },
   validations: {
     newUrl: {
@@ -73,7 +72,7 @@ export default {
       },
       custom: {
         maxLength: maxLength(20)
-      },
+      }
     }
   }
 }
